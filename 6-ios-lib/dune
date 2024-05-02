@@ -1,0 +1,42 @@
+(executable
+ (name main)
+;  (enabled_if (or
+;   (= %{context_name} "device.ios")
+;   (= %{context_name} "simulator.ios")))
+ (libraries
+  camlkit-base.foundation
+  camlkit-gui.uikit
+  ctypes)
+ (flags
+  :standard
+  ; -verbose
+  -noautolink
+  -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-deps/libffi/lib
+  -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes
+  -cclib -lffi
+  -cclib -lctypes_stubs
+  -cclib -lctypes-foreign_stubs
+  -cclib -lintegers_stubs
+  -cclib -lunix
+  -cclib -lthreadsnat
+  )
+ (foreign_stubs
+  (language c)
+  (flags
+   :standard
+   -framework UIKit
+   -x objective-c
+   -DCAML_NAME_SPACE)
+  (names stubs))
+ (modes (native object)))
+
+; A library archive can bundle x86_64 simulator and Arm device code.
+; To bundle Arm simulator and Arm device code you will need to set up
+; an .xcframework instead.
+(rule
+ (enabled_if (or
+  (= %{context_name} "device.ios")
+  (= %{context_name} "simulator.ios")))
+ (deps main.exe.o)
+ (targets libcaml.a)
+ (action (run ar cq %{targets} %{deps})))
