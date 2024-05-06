@@ -19,11 +19,11 @@ module App_controller = struct
     and label = _new_ UILabel._class_
     and main_screen_bounds =
       UIScreen._class_
-      |> UIScreen.Class.mainScreen
+      |> UIScreen.C.mainScreen
       |> UIScreen.bounds
     in
     label |> UILabel.setText (new_string "Hello from OCaml");
-    label |> UILabel.setTextColor (UIColor.Class.blackColor UIColor._class_);
+    label |> UILabel.setTextColor (UIColor.C.blackColor UIColor._class_);
     label |> UILabel.setTextAlignment _NSTextAlignmentCenter;
     label |> UIView.setFrame main_screen_bounds;
     win |> UIWindow.contentView |> UIView.addSubview label
@@ -42,7 +42,7 @@ let main () =
   Callback.register "camllib_applicationDidFinishLaunching" (fun () ->
     let ctrl = _new_ App_controller._class_
     and nc =
-      NSNotificationCenter._class_ |> NSNotificationCenter.Class.defaultCenter
+      NSNotificationCenter._class_ |> NSNotificationCenter.C.defaultCenter
     in
     nc |> NSNotificationCenter.addObserver ctrl
       ~selector_: (selector "sceneActivated")

@@ -1,13 +1,11 @@
 (executable
  (name main)
- (public_name hello_nib)
- (package camlkit-examples)
  (enabled_if (not (or
   (= %{context_name} device.ios)
   (= %{context_name} simulator.ios)
   (= %{context_name} maccatalyst.ios))))
- (flags :standard -ccopt "-framework AppKit")
- (libraries foundation appkit))
+ (flags :standard -ccopt "-framework Cocoa")
+ (libraries camlkit-base.foundation camlkit-gui.appkit camlkit))
 
 (alias
  (name default)

@@ -3,7 +3,7 @@ open Runtime
 open Appkit
 
 let label =
-  NSTextField._class_ |> NSTextField.Class.labelWithString (new_string "")
+  NSTextField._class_ |> NSTextField.C.labelWithString (new_string "")
 let increment_sel = selector "incrementClicked:"
 
 let update_label () =
@@ -32,15 +32,18 @@ let create _app =
     alloc NSWindow._class_
     |> NSWindow.initWithContentRect
       (CGRect.make ~x: 0. ~y: 0. ~width: w ~height: h)
-      ~styleMask: (combine_options Appkit_global.StyleMask.[titled; closable])
-      ~backing: Appkit_global.BackingStoreType.buffered
+      ~styleMask: (combine_options Appkit_.[
+        _NSWindowStyleMaskTitled;
+        _NSWindowStyleMaskClosable
+      ])
+      ~backing: Appkit_._NSBackingStoreBuffered
       ~defer: false
 
   and controller = _new_ controller_class
   in
   let btn =
     NSButton._class_
-    |> NSButton.Class.buttonWithTitle (new_string "Increment")
+    |> NSButton.C.buttonWithTitle (new_string "Increment")
       ~target: controller ~action: increment_sel
   in
   btn |> NSView.setFrame

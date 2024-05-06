@@ -40,7 +40,7 @@ struct
           ~atIndex: (Signed.LLong.of_int 2);
       Printf.eprintf "respondsToSelector: %s\n%!" (string_of_selector !@sel);
       inv |> NSInvocation.setReturnValue
-        (NSNumber._class_ |> NSNumber.Class.numberWithBool true)
+        (NSNumber._class_ |> NSNumber.C.numberWithBool true)
     | sel ->
       Printf.eprintf "Not found: %s\n%!" sel;
       raise Not_found

@@ -10,17 +10,20 @@ let create_window app =
     alloc NSWindow._class_
     |> NSWindow.initWithContentRect
       (CGRect.make ~x: 0. ~y: 0. ~width: w ~height: h)
-      ~styleMask: (combine_options Appkit_global.StyleMask.[titled; closable])
-      ~backing: Appkit_global.BackingStoreType.buffered
+      ~styleMask: (combine_options Appkit_.[
+        _NSWindowStyleMaskTitled;
+        _NSWindowStyleMaskClosable
+      ])
+      ~backing: Appkit_._NSBackingStoreBuffered
       ~defer: false
 
   and btn =
     NSButton._class_
-    |> NSButton.Class.buttonWithTitle (new_string "Quit")
+    |> NSButton.C.buttonWithTitle (new_string "Quit")
       ~target: app ~action: (selector "terminate:")
   and label =
     NSTextField._class_
-    |> NSTextField.Class.labelWithString (new_string "Hello, world!")
+    |> NSTextField.C.labelWithString (new_string "Hello, world!")
   in
     label |> NSView.setFrame
       (CGRect.make ~x: 10. ~y: (h -. 40.) ~width: 150. ~height: 30.);
@@ -35,7 +38,7 @@ let create_window app =
 ;;
 
 let main () =
-  let app = NSApplication._class_ |> NSApplication.Class.sharedApplication in
+  let app = NSApplication._class_ |> NSApplication.C.sharedApplication in
   let win = create_window app in
 
   let pt =
@@ -44,8 +47,8 @@ let main () =
   Printf.eprintf "Cascaded point: %.0f %.0f\n%!" (CGPoint.x pt) (CGPoint.y pt);
   win |> NSWindow.makeKeyAndOrderFront nil;
 
-  assert (app |>
-    NSApplication.setActivationPolicy Appkit_global.ActivationPolicy.regular);
+  assert (app |> NSApplication.setActivationPolicy
+    Appkit_._NSApplicationActivationPolicyRegular);
   app |> NSApplication.activateIgnoringOtherApps true;
 
   NSApplication.run app

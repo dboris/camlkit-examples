@@ -1,10 +1,8 @@
 (executable
  (name main)
- (public_name default_app)
- (package camlkit-examples)
  (enabled_if (not (or
   (= %{context_name} device.ios)
   (= %{context_name} simulator.ios)
   (= %{context_name} maccatalyst.ios))))
- (flags :standard -ccopt "-framework AppKit")
- (libraries foundation appkit))
+ (flags :standard -ccopt "-framework Cocoa")
+ (libraries camlkit-base.foundation camlkit-gui.appkit camlkit))

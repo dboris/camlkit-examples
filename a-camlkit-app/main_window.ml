@@ -3,7 +3,7 @@ open Runtime
 open Appkit
 
 let label =
-  NSTextField._class_ |> NSTextField.Class.labelWithString (new_string "")
+  NSTextField._class_ |> NSTextField.C.labelWithString (new_string "")
 
 let update_label () =
   let count = Model.get_count () |> string_of_int  in
@@ -24,7 +24,7 @@ let create app_ctrl =
   in
   let btn =
     NSButton._class_
-    |> NSButton.Class.buttonWithTitle (new_string "Increment")
+    |> NSButton.C.buttonWithTitle (new_string "Increment")
       ~target: app_ctrl ~action: (selector "incrementClicked:")
   in
   btn |> NSView.setFrame

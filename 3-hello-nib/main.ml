@@ -6,16 +6,14 @@ open Runtime
    `MainWindowController.nib`.
 *)
 
-let tag_of_int = Signed.LLong.of_int
-
 let setup_ui self _cmd =
-  let app = NSApplication._class_ |> NSApplication.Class.sharedApplication
+  let app = NSApplication._class_ |> NSApplication.C.sharedApplication
   and win = self |> NSWindowController.window in
   let cv = win |> NSWindow.contentView in
 
   (* Access subviews by tag from NIB file *)
-  let label = cv |> NSView.viewWithTag (tag_of_int 1)
-  and button = cv |> NSView.viewWithTag (tag_of_int 2)
+  let label = cv |> NSView.viewWithTag 1
+  and button = cv |> NSView.viewWithTag 2
   in
   label |> NSControl.setStringValue (new_string "Hello, world!");
   button |> NSControl.setTarget app;
@@ -40,9 +38,9 @@ let main () =
   in
   wc |> NSWindowController.showWindow nil;
 
-  let app = NSApplication._class_ |> NSApplication.Class.sharedApplication in
+  let app = NSApplication._class_ |> NSApplication.C.sharedApplication in
   assert (app |>
-    NSApplication.setActivationPolicy Appkit_global.ActivationPolicy.regular);
+    NSApplication.setActivationPolicy Appkit_._NSApplicationActivationPolicyRegular);
   app |> NSApplication.activateIgnoringOtherApps true;
 
   NSApplication.run app
