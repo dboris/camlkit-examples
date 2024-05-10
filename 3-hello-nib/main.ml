@@ -24,7 +24,7 @@ let setup_ui self _cmd =
 let main () =
   let wc_class =
     Define._class_ "MainWindowController"
-      ~superclass: "NSWindowController"
+      ~superclass: NSWindowController._class_
       ~methods: [
         Define._method_ setup_ui
           ~cmd: (selector "windowDidLoad")

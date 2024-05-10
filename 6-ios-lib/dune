@@ -1,8 +1,8 @@
 (executable
  (name main)
-;  (enabled_if (or
-;   (= %{context_name} "device.ios")
-;   (= %{context_name} "simulator.ios")))
+ (enabled_if (or
+  (= %{context_name} "device.ios")
+  (= %{context_name} "simulator.ios")))
  (libraries
   camlkit-base.foundation
   camlkit-gui.uikit
@@ -13,9 +13,10 @@
   -noautolink
   -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-deps/libffi/lib
   -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes
+  -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes-foreign
   -cclib -lffi
   -cclib -lctypes_stubs
-  -cclib -lctypes-foreign_stubs
+  -cclib -lctypes_foreign_stubs
   -cclib -lintegers_stubs
   -cclib -lunix
   -cclib -lthreadsnat

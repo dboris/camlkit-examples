@@ -36,7 +36,8 @@ module AppDelegate = struct
       ~return: Objc_t.bool
     ]
 
-  let _class_ = Define._class_ "AppDelegate" ~superclass: "UIResponder" ~methods
+  let _class_ =
+    Define._class_ "AppDelegate" ~superclass: UIResponder._class_ ~methods
 end
 
 let main () =

@@ -33,6 +33,6 @@ let define_class () =
     ]
   in
     _class_ "Document"
-      ~superclass: "NSDocument"
+      ~superclass: NSDocument._class_
       ~methods ~ivars
 ;;
