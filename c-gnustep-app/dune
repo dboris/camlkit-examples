@@ -1,21 +1,24 @@
 (executable
  (name main)
- (public_name hello_gnustep)
- (package camlkit-examples)
- (enabled_if (not (or
-  (= %{context_name} device.ios)
-  (= %{context_name} simulator.ios)
-  (= %{context_name} maccatalyst.ios))))
- (libraries foundation appkit camlkit))
+ (enabled_if (and
+  (<> %{context_name} default.ios)
+  (<> %{context_name} device.ios)
+  (<> %{context_name} simulator.ios)
+  (<> %{context_name} simulator-arm.ios)
+  (<> %{context_name} catalyst.ios)))
+ (flags :standard -ccopt "-framework AppKit")
+ (libraries camlkit-base.foundation camlkit-gui.appkit camlkit.camlkit))
 
 (subdir GSApp.app
  (rule
   (deps ../main.exe)
   (targets GSApp)
-  (enabled_if (not (or
-   (= %{context_name} device.ios)
-   (= %{context_name} simulator.ios)
-   (= %{context_name} maccatalyst.ios))))
+  (enabled_if (and
+   (<> %{context_name} default.ios)
+   (<> %{context_name} device.ios)
+   (<> %{context_name} simulator.ios)
+   (<> %{context_name} simulator-arm.ios)
+   (<> %{context_name} catalyst.ios)))
   (action (copy ../main.exe GSApp))))
 
 (subdir GSApp.app/Resources

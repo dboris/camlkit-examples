@@ -1,4 +1,5 @@
 open Appkit
+open Appkit_globals
 open Runtime
 
 (* This example demonstrates how to access view objects from a NIB file.
@@ -39,8 +40,9 @@ let main () =
   wc |> NSWindowController.showWindow nil;
 
   let app = NSApplication._class_ |> NSApplication.C.sharedApplication in
-  assert (app |>
-    NSApplication.setActivationPolicy Appkit_._NSApplicationActivationPolicyRegular);
+  app
+  |> NSApplication.setActivationPolicy _NSApplicationActivationPolicyRegular
+  |> ignore;
   app |> NSApplication.activateIgnoringOtherApps true;
 
   NSApplication.run app

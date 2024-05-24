@@ -1,5 +1,6 @@
-open Uikit
 open Foundation
+open Uikit
+open Uikit_globals
 open Runtime
 
 (* This example illustrates a "Hello world" app built as a library.
@@ -8,8 +9,6 @@ open Runtime
 *)
 
 module App_controller = struct
-  let _NSTextAlignmentCenter = Objc.LLong.of_int 1
-
   let show_hello _self _cmd notif =
     let win =
       notif
@@ -24,7 +23,7 @@ module App_controller = struct
     in
     label |> UILabel.setText (new_string "Hello from OCaml");
     label |> UILabel.setTextColor (UIColor.C.blackColor UIColor._class_);
-    label |> UILabel.setTextAlignment _NSTextAlignmentCenter;
+    label |> UILabel.setTextAlignment _UITextAlignmentCenter;
     label |> UIView.setFrame main_screen_bounds;
     win |> UIWindow.contentView |> UIView.addSubview label
 

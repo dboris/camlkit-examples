@@ -1,10 +1,11 @@
 (executable
  (name main)
-;  (enabled_if (or
-;   (= %{context_name} device.ios)
-;   (= %{context_name} simulator.ios)
-;   (= %{context_name} catalyst.ios)))
- (flags :standard -ccopt "-framework UIKit")
+ (enabled_if (or
+  (= %{context_name} default.ios)
+  (= %{context_name} device.ios)
+  (= %{context_name} simulator.ios)
+  (= %{context_name} simulator-arm.ios)
+  (= %{context_name} catalyst.ios)))
  (libraries camlkit-base.foundation camlkit-gui.uikit))
 
 (subdir Demo.app
@@ -13,8 +14,10 @@
   (deps ../Info.plist ../main.exe)
   (targets Info.plist Demo)
   (enabled_if (or
+   (= %{context_name} default.ios)
    (= %{context_name} device.ios)
    (= %{context_name} simulator.ios)
+   (= %{context_name} simulator-arm.ios)
    (= %{context_name} catalyst.ios)))
   (action (progn
    (copy ../Info.plist Info.plist)

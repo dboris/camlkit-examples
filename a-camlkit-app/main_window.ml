@@ -1,6 +1,7 @@
 open Foundation
-open Runtime
 open Appkit
+open Appkit_globals
+open Runtime
 
 let label =
   NSTextField._class_ |> NSTextField.C.labelWithString (new_string "")
@@ -11,15 +12,17 @@ let update_label () =
 ;;
 
 let create app_ctrl =
-  let w = 400.
-  and h = 300.
-  in
+  let w = 400. and h = 300. in
   let win =
     alloc NSWindow._class_
     |> NSWindow.initWithContentRect
       (CGRect.make ~x: 0. ~y: 0. ~width: w ~height: h)
-      ~styleMask: (combine_options Appkit_global.StyleMask.[titled; closable; resizable])
-      ~backing: Appkit_global.BackingStoreType.buffered
+      ~styleMask: (combine_options [
+        _NSWindowStyleMaskTitled;
+        _NSWindowStyleMaskClosable;
+        _NSWindowStyleMaskResizable
+        ])
+      ~backing: _NSBackingStoreBuffered
       ~defer: false
   in
   let btn =

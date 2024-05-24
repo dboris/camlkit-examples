@@ -1,11 +1,13 @@
+open Foundation
 open Appkit
+open Appkit_globals
+open Camlkit
 open Runtime
 
-
-module Delegate = AppDelegate.Create (App_delegate)
+module Delegate = Appkit_AppDelegate.Create (App_delegate)
 
 let main () =
-  let _ = new_object "NSAutoreleasePool"
+  let _ = _new_ NSAutoreleasePool._class_
   and app = NSApplication._class_ |> NSApplication.C.sharedApplication
   and argc = Array.length Sys.argv
   and argv =
@@ -17,7 +19,7 @@ let main () =
   app |> NSApplication.setDelegate (_new_ Delegate._class_);
   app |> NSApplication.activateIgnoringOtherApps true;
 
-  Appkit_._NSApplicationMain ~argc ~argv |> exit
+  _NSApplicationMain argc argv |> exit
 ;;
 
 let () = main ()

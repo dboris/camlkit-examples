@@ -10,11 +10,16 @@ let create app_name =
   main_menu
   |> NSMenu.setSubmenu app_menu
     ~forItem: (
-      main_menu |> NSMenu.addItemWithTitle (new_string app_name)
-        ~action: (to_selector nil) ~keyEquivalent: (new_string ""));
+      main_menu
+      |> NSMenu.addItemWithTitle (new_string app_name)
+        ~action: (to_selector nil)
+        ~keyEquivalent: (new_string "")
+    );
 
-  app_menu |> NSMenu.addItemWithTitle (new_string "Quit")
-    ~action: (selector "terminate:") ~keyEquivalent: (new_string "q")
+  app_menu
+  |> NSMenu.addItemWithTitle (new_string "Quit")
+    ~action: (selector "terminate:")
+    ~keyEquivalent: (new_string "q")
   |> ignore;
 
   main_menu

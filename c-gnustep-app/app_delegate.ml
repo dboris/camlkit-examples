@@ -1,6 +1,7 @@
 open Foundation
 open Runtime
 open Appkit
+open Appkit_globals
 open Camlkit
 
 let app_name = "gnustep-app"
@@ -36,8 +37,7 @@ struct
       Printf.eprintf "btnClicked...\n%!"
     | "respondsToSelector:" ->
       let sel = allocate _SEL (selector "init") in
-      inv |> NSInvocation.getArgument (to_voidp sel)
-          ~atIndex: (Signed.LLong.of_int 2);
+      inv |> NSInvocation.getArgument (to_voidp sel) ~atIndex: 2;
       Printf.eprintf "respondsToSelector: %s\n%!" (string_of_selector !@sel);
       inv |> NSInvocation.setReturnValue
         (NSNumber._class_ |> NSNumber.C.numberWithBool true)
@@ -50,15 +50,17 @@ end
 module App_window =
 struct
   let create app ctrl =
-    let w = 300.
-    and h = 200.
-    in
+    let w = 300. and h = 200. in
     let win =
       alloc NSWindow._class_
       |> NSWindow.initWithContentRect
         (CGRect.make ~x: 0. ~y: 0. ~width: w ~height: h)
-        ~styleMask: (combine_options Appkit_global.StyleMask.[titled; closable])
-        ~backing: Appkit_global.BackingStoreType.buffered
+        ~styleMask: (combine_options [
+          _NSWindowStyleMaskTitled;
+          _NSWindowStyleMaskClosable;
+          _NSWindowStyleMaskResizable
+          ])
+        ~backing: _NSBackingStoreBuffered
         ~defer: false
     and btn1 =
       alloc NSButton._class_

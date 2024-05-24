@@ -1,3 +1,4 @@
+open Foundation
 open Runtime
 open Define
 module T = Objc_t
@@ -7,9 +8,7 @@ let define_class () =
   let ivars = [ ivar items T.id ]
 
   and init self cmd =
-    let self = msg_send_super' cmd
-      ~self ~args: T.[] ~return: T.id
-    in
+    let self = self |> msg_super cmd ~args: T.[] ~return: T.id in
     self |> Property.set items (new_object "NSMutableArray") ~typ: Objc_t.id;
     self
   in

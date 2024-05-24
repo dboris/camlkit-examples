@@ -1,5 +1,6 @@
 open Runtime
 open Appkit
+open Appkit_globals
 
 module Delegate = AppDelegate.Create (App_delegate)
 
@@ -14,11 +15,11 @@ let main () =
     |> Objc.CArray.start
   in
   assert (app |>
-    NSApplication.setActivationPolicy Appkit_._NSApplicationActivationPolicyRegular);
+    NSApplication.setActivationPolicy _NSApplicationActivationPolicyRegular);
   app |> NSApplication.setDelegate (_new_ Delegate._class_);
   app |> NSApplication.activateIgnoringOtherApps true;
 
-  Appkit_._NSApplicationMain ~argc ~argv |> exit
+  _NSApplicationMain ~argc ~argv |> exit
 ;;
 
 let () = main ()

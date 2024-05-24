@@ -1,26 +1,27 @@
 (executable
  (name main)
  (enabled_if (or
-  (= %{context_name} "device.ios")
-  (= %{context_name} "simulator.ios")))
+  (= %{context_name} default.ios)
+  (= %{context_name} device.ios)
+  (= %{context_name} simulator.ios)
+  (= %{context_name} simulator-arm.ios)
+  (= %{context_name} catalyst.ios)))
  (libraries
   camlkit-base.foundation
   camlkit-gui.uikit
   ctypes)
- (flags
-  :standard
-  ; -verbose
-  -noautolink
-  -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-deps/libffi/lib
-  -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes
-  -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes-foreign
-  -cclib -lffi
-  -cclib -lctypes_stubs
-  -cclib -lctypes_foreign_stubs
-  -cclib -lintegers_stubs
-  -cclib -lunix
-  -cclib -lthreadsnat
-  )
+;  (flags
+;   :standard
+;   -noautolink
+;   -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-deps/libffi/lib
+;   -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes
+;   -cclib -L%{env:OPAM_SWITCH_PREFIX=/Users/boris/.opam/4.14.2-simulator}/ios-sysroot/lib/ctypes-foreign
+;   -cclib -lffi
+;   -cclib -lctypes_stubs
+;   -cclib -lctypes_foreign_stubs
+;   -cclib -lintegers_stubs
+;   -cclib -lunix
+;   -cclib -lthreadsnat)
  (foreign_stubs
   (language c)
   (flags
