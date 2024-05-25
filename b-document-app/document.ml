@@ -1,9 +1,9 @@
 open Foundation
 open Runtime
-open Define
 module T = Objc_t
 
 let define_class () =
+  let open Define in
   let items = "items" in
   let ivars = [ ivar items T.id ]
 
@@ -31,7 +31,4 @@ let define_class () =
       ~args: T.[id; id; ptr id] ~return: T.bool
     ]
   in
-    _class_ "Document"
-      ~superclass: NSDocument._class_
-      ~methods ~ivars
-;;
+  _class_ "Document" ~superclass: NSDocument._class_ ~methods ~ivars

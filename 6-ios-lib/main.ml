@@ -21,7 +21,7 @@ module App_controller = struct
       |> UIScreen.C.mainScreen
       |> UIScreen.bounds
     in
-    label |> UILabel.setText (new_string "Hello from OCaml");
+    label |> UILabel.setText (new_string "Hello from OCaml!");
     label |> UILabel.setTextColor (UIColor.C.blackColor UIColor._class_);
     label |> UILabel.setTextAlignment _UITextAlignmentCenter;
     label |> UIView.setFrame main_screen_bounds;
