@@ -1,18 +1,16 @@
-.PHONY: build bundle
+.PHONY: build
 
-OUTPUT := MyLibrary.xcframework
-BUILD_DIR := _build
-
-bundle: $(BUILD_DIR)/libcaml.a
-	rm -rf $(OUTPUT)
-	xcodebuild -create-xcframework \
-		-library $(BUILD_DIR)/device.ios/libcaml.a \
-		-library $(BUILD_DIR)/libcaml.a \
-		-output $(OUTPUT) \
+MyLibrary.xcframework: _build/libcaml.a
+	rm -rf $@
+	xcodebuild -create-xcframework -output $@ \
+		-library _build/device.ios/libcaml.a \
+		-library $^ \
 		-allow-internal-distribution
+
+_build/libcaml.a: build
+	lipo -create -output $@ \
+		_build/simulator.ios/libcaml.a \
+		_build/simulator-arm.ios/libcaml.a
 
 build:
 	dune build @default
-
-$(BUILD_DIR)/libcaml.a: build
-	lipo $(BUILD_DIR)/simulator.ios/libcaml.a $(BUILD_DIR)/simulator-arm.ios/libcaml.a -create -output $@
