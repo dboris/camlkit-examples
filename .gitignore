@@ -4,3 +4,5 @@ local/
 *.mobileprovision
 .merlin
 .vscode/
+*.xcframework/
+dist/

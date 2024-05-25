@@ -13,7 +13,6 @@
   (language c)
   (flags
    :standard
-   -framework UIKit
    -x objective-c
    -DCAML_NAME_SPACE)
   (names stubs))

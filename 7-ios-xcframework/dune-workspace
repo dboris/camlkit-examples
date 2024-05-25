@@ -1,11 +1,11 @@
 (lang dune 3.13)
 
-; (context
-;  (opam
-;   (switch 4.14.2-device)
-;   (name device)
-;   (targets ios)
-;   (disable_dynamically_linked_foreign_archives true)))
+(context
+ (opam
+  (switch 4.14.2-device)
+  (name device)
+  (targets ios)
+  (disable_dynamically_linked_foreign_archives true)))
 
 (context
  (opam
@@ -15,12 +15,12 @@
   (merlin)
   (disable_dynamically_linked_foreign_archives true)))
 
-; (context
-;  (opam
-;   (switch 4.14.2-simulator-arm)
-;   (name simulator-arm)
-;   (targets ios)
-;   (disable_dynamically_linked_foreign_archives true)))
+(context
+ (opam
+  (switch 4.14.2-simulator-arm)
+  (name simulator-arm)
+  (targets ios)
+  (disable_dynamically_linked_foreign_archives true)))
 
 ; (context
 ;  (opam
