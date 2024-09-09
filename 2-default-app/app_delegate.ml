@@ -1,6 +1,6 @@
 open Foundation
 open Runtime
-open Appkit
+open AppKit
 
 let app_name = "2-default-app"
 let class_name = "MyAppDelegate"
@@ -17,7 +17,7 @@ let on_started notification =
   let win = Main_window.create app in
   win |> NSWindow.setTitle (new_string app_name);
   win
-  |> NSWindow.cascadeTopLeftFromPoint (CGPoint.make ~x: 20. ~y: 20.)
+  |> NSWindow.cascadeTopLeftFromPoint (CGPoint.init ~x: 20. ~y: 20.)
   |> ignore;
   win |> NSWindow.makeKeyAndOrderFront nil
 ;;

@@ -1,14 +1,13 @@
 open Foundation
-open Appkit
-open Appkit_globals
+open AppKit
 open Camlkit
 open Runtime
 
 module Delegate = Appkit_AppDelegate.Create (App_delegate)
 
 let main () =
-  let _ = _new_ NSAutoreleasePool._class_
-  and app = NSApplication._class_ |> NSApplication.C.sharedApplication
+  let _ = _new_ NSAutoreleasePool.self
+  and app = NSApplication.self |> NSApplicationClass.sharedApplication
   and argc = Array.length Sys.argv
   and argv =
     Sys.argv

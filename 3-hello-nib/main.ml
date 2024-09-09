@@ -1,5 +1,4 @@
-open Appkit
-open Appkit_globals
+open AppKit
 open Runtime
 
 (* This example demonstrates how to access view objects from a NIB file.
@@ -8,7 +7,7 @@ open Runtime
 *)
 
 let setup_ui self _cmd =
-  let app = NSApplication._class_ |> NSApplication.C.sharedApplication
+  let app = NSApplication.self |> NSApplicationClass.sharedApplication
   and win = self |> NSWindowController.window in
   let cv = win |> NSWindow.contentView in
 
@@ -24,10 +23,10 @@ let setup_ui self _cmd =
 
 let main () =
   let wc_class =
-    Define._class_ "MainWindowController"
-      ~superclass: NSWindowController._class_
+    Class.define "MainWindowController"
+      ~superclass: NSWindowController.self
       ~methods: [
-        Define._method_ setup_ui
+        Method.define setup_ui
           ~cmd: (selector "windowDidLoad")
           ~args: Objc_t.[] ~return: Objc_t.void
       ]
@@ -39,7 +38,7 @@ let main () =
   in
   wc |> NSWindowController.showWindow nil;
 
-  let app = NSApplication._class_ |> NSApplication.C.sharedApplication in
+  let app = NSApplication.self |> NSApplicationClass.sharedApplication in
   app
   |> NSApplication.setActivationPolicy _NSApplicationActivationPolicyRegular
   |> ignore;

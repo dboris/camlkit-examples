@@ -1,7 +1,6 @@
 open Foundation
 open Runtime
-open Appkit
-open Appkit_globals
+open AppKit
 open Camlkit
 
 let app_name = "gnustep-app"
@@ -40,7 +39,7 @@ struct
       inv |> NSInvocation.getArgument (to_voidp sel) ~atIndex: 2;
       Printf.eprintf "respondsToSelector: %s\n%!" (string_of_selector !@sel);
       inv |> NSInvocation.setReturnValue
-        (NSNumber._class_ |> NSNumber.C.numberWithBool true)
+        (NSNumber.self |> NSNumberClass.numberWithBool true)
     | sel ->
       Printf.eprintf "Not found: %s\n%!" sel;
       raise Not_found
@@ -52,10 +51,10 @@ struct
   let create app ctrl =
     let w = 300. and h = 200. in
     let win =
-      alloc NSWindow._class_
+      alloc NSWindow.self
       |> NSWindow.initWithContentRect
         (CGRect.make ~x: 0. ~y: 0. ~width: w ~height: h)
-        ~styleMask: (combine_options [
+        ~styleMask: (Bitmask.of_list [
           _NSWindowStyleMaskTitled;
           _NSWindowStyleMaskClosable;
           _NSWindowStyleMaskResizable
@@ -63,14 +62,14 @@ struct
         ~backing: _NSBackingStoreBuffered
         ~defer: false
     and btn1 =
-      alloc NSButton._class_
+      alloc NSButton.self
       |> NSButton.initWithFrame
         (CGRect.make ~x: 90. ~y: 10. ~width: 100. ~height: 30.)
     and btn2 =
-      alloc NSButton._class_
+      alloc NSButton.self
       |> NSButton.initWithFrame
         (CGRect.make ~x: 190. ~y: 10. ~width: 100. ~height: 30.)
-    and label = _new_ NSTextField._class_
+    and label = _new_ NSTextField.self
     in
       btn1 |> NSButton.setTitle (new_string "Click me");
       btn1 |> NSControl.setTarget ctrl;
@@ -98,10 +97,10 @@ let on_before_start _notification = ()
 let on_started notification =
   let module Ctrl = CamlProxy.Create (App_controller) in
   let app = NSNotification.object_ notification in
-  let win = App_window.create app (Ctrl._class_ |> alloc |> init) in
+  let win = App_window.create app (Ctrl.self |> alloc |> init) in
   win |> NSWindow.setTitle (new_string app_name);
   win
-  |> NSWindow.cascadeTopLeftFromPoint (CGPoint.make ~x: 20. ~y: 20.)
+  |> NSWindow.cascadeTopLeftFromPoint (CGPoint.init ~x: 20. ~y: 20.)
   |> ignore;
   win |> NSWindow.makeKeyAndOrderFront nil
 ;;

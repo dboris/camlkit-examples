@@ -1,10 +1,9 @@
 open Foundation
-open Appkit
-open Appkit_globals
+open AppKit
 open Runtime
 
 let label =
-  NSTextField._class_ |> NSTextField.C.labelWithString (new_string "")
+  NSTextField.self |> NSTextFieldClass.labelWithString (new_string "")
 let increment_sel = selector "incrementClicked:"
 
 let update_label () =
@@ -18,9 +17,9 @@ let increment_count_method _self _cmd _sender =
 ;;
 
 let controller_class =
-  Define._class_ "MyController"
+  Class.define "MyController"
     ~methods:
-      [ Define._method_ increment_count_method
+      [ Method.define increment_count_method
         ~cmd: increment_sel ~args: Objc_t.[id] ~return: Objc_t.void
       ]
 ;;
@@ -28,10 +27,10 @@ let controller_class =
 let create _app =
   let w = 400. and h = 300. in
   let win =
-    alloc NSWindow._class_
+    alloc NSWindow.self
     |> NSWindow.initWithContentRect
       (CGRect.make ~x: 0. ~y: 0. ~width: w ~height: h)
-      ~styleMask: (combine_options [
+      ~styleMask: (Bitmask.of_list [
         _NSWindowStyleMaskTitled; _NSWindowStyleMaskClosable
       ])
       ~backing: _NSBackingStoreBuffered
@@ -39,8 +38,8 @@ let create _app =
   and controller = _new_ controller_class
   in
   let btn =
-    NSButton._class_
-    |> NSButton.C.buttonWithTitle (new_string "Increment")
+    NSButton.self
+    |> NSButtonClass.buttonWithTitle (new_string "Increment")
       ~target: controller ~action: increment_sel
   in
   btn |> NSView.setFrame

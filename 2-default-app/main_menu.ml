@@ -1,11 +1,11 @@
 open Runtime
-open Appkit
+open AppKit
 
 let create app_name =
-  let main_menu = _new_ NSMenu._class_
-  and app_menu = _new_ NSMenu._class_
+  let main_menu = _new_ NSMenu.self
+  and app_menu = _new_ NSMenu.self
   in
-  main_menu |> NSMenu.addItem (_new_ NSMenuItem._class_);
+  main_menu |> NSMenu.addItem (_new_ NSMenuItem.self);
 
   main_menu
   |> NSMenu.setSubmenu app_menu

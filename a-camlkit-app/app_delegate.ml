@@ -1,6 +1,6 @@
 open Foundation
 open Runtime
-open Appkit
+open AppKit
 open Camlkit
 
 let app_name = "a-camlkit-app"
@@ -18,7 +18,7 @@ let on_started _notification =
   let win = Main_window.create (_new_ AC._class_) in
   win |> NSWindow.setTitle (new_string app_name);
   win
-  |> NSWindow.cascadeTopLeftFromPoint (CGPoint.make ~x: 20. ~y: 20.)
+  |> NSWindow.cascadeTopLeftFromPoint (CGPoint.init ~x: 20. ~y: 20.)
   |> ignore;
   win |> NSWindow.makeKeyAndOrderFront nil
 ;;
