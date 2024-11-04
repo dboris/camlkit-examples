@@ -1,6 +1,4 @@
-open Foundation
 open AppKit
-open Runtime
 
 let create_window app =
   let w = 300. and h = 200. in

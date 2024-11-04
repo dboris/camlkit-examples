@@ -1,5 +1,4 @@
 open AppKit
-open Runtime
 
 (* This example demonstrates how to access view objects from a NIB file.
    The UI was laid out in Interface Builder and saved as a NIB file
@@ -28,7 +27,7 @@ let main () =
       ~methods: [
         Method.define setup_ui
           ~cmd: (selector "windowDidLoad")
-          ~args: Objc_t.[] ~return: Objc_t.void
+          ~args: Objc_type.noargs ~return: Objc_type.void
       ]
   in
   let wc =

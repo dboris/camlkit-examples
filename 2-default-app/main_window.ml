@@ -1,6 +1,4 @@
-open Foundation
 open AppKit
-open Runtime
 
 let label =
   NSTextField.self |> NSTextFieldClass.labelWithString (new_string "")
@@ -20,7 +18,7 @@ let controller_class =
   Class.define "MyController"
     ~methods:
       [ Method.define increment_count_method
-        ~cmd: increment_sel ~args: Objc_t.[id] ~return: Objc_t.void
+        ~cmd: increment_sel ~args: Objc_type.[id] ~return: Objc_type.void
       ]
 ;;
 

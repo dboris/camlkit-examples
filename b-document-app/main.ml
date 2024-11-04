@@ -1,14 +1,12 @@
-open Foundation
 open AppKit
 open Camlkit
-open Runtime
 
 module Delegate = Appkit_AppDelegate.Create (App_delegate)
 
 let main () =
   let _ = _new_ NSAutoreleasePool.self
-  and _ = Document.define_class ()
-  and _ = Todo.define_class ()
+  and _ = Document.define ()
+  and _ = Todo.define ()
   and app = NSApplication.self |> NSApplicationClass.sharedApplication
   and argc = Array.length Sys.argv
   and argv =

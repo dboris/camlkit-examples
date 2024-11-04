@@ -1,5 +1,3 @@
-open Foundation
-open Runtime
 open AppKit
 
 let app_name = "2-default-app"

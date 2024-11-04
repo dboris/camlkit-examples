@@ -1,7 +1,5 @@
-open Foundation
 open AppKit
 open Camlkit
-open Runtime
 
 module Delegate = Appkit_AppDelegate.Create (App_delegate)
 

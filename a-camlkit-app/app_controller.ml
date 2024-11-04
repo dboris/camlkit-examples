@@ -8,8 +8,8 @@ let ivars = []
 let init self = self
 
 let method_signature_for_selector = function
-  | "incrementClicked:" -> Objc_t.(Encode._method_ ~args: [id] void)
-  | _ -> Objc_t.(Encode.value unknown)
+  | "incrementClicked:" -> Objc_type.(encode_method ~args: [id] void)
+  | _ -> Objc_type.(encode_value unknown)
 ;;
 
 let handle_invocation inv _ =

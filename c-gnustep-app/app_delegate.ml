@@ -1,5 +1,3 @@
-open Foundation
-open Runtime
 open AppKit
 open Camlkit
 
@@ -18,13 +16,13 @@ struct
 
   let method_signature_for_selector = function
     | "btnClicked:" ->
-      let s = Objc_t.(Encode._method_ ~args: [id] void) in
+      let s = Objc_type.(encode_method ~args: [id] void) in
       Printf.eprintf
         "method_signature_for_selector: @(%s): %s\n%!"
         "btnClicked:" s;
       s
     | "respondsToSelector:" ->
-      Objc_t.(Encode._method_ ~args: [_SEL] bool)
+      Objc_type.(encode_method ~args: [_SEL] bool)
     | sel ->
       Printf.eprintf "Not found: %s\n%!" sel;
       raise Not_found
@@ -35,11 +33,11 @@ struct
     | "btnClicked:" ->
       Printf.eprintf "btnClicked...\n%!"
     | "respondsToSelector:" ->
-      let sel = allocate _SEL (selector "init") in
-      inv |> NSInvocation.getArgument (to_voidp sel) ~atIndex: 2;
-      Printf.eprintf "respondsToSelector: %s\n%!" (string_of_selector !@sel);
+      let sel = Objc.(allocate _SEL (selector "init")) in
+      inv |> NSInvocation.getArgument (Objc.to_voidp sel) ~atIndex: 2;
+      Printf.eprintf "respondsToSelector: %s\n%!" Objc.(string_of_selector !@ sel);
       inv |> NSInvocation.setReturnValue
-        (NSNumber.self |> NSNumberClass.numberWithBool true)
+        (NSNumber.self |> NSNumberClass.numberWithBool true |> Objc.to_voidp)
     | sel ->
       Printf.eprintf "Not found: %s\n%!" sel;
       raise Not_found

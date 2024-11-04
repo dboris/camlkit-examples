@@ -1,7 +1,4 @@
-open Foundation
 open Uikit
-open Uikit_globals
-open Runtime
 
 (* This example illustrates a "Hello world" app built as a library.
    The only requirement for the Xcode project is to call `caml_startup` in
@@ -30,13 +27,13 @@ module App_controller = struct
   let methods =
     [ Method.define show_hello
       ~cmd: (selector "sceneActivated")
-      ~args: Objc_t.[id]
-      ~return: Objc_t.void
+      ~args: Objc_type.[id]
+      ~return: Objc_type.void
 
     ; Method.define
       ~cmd: (selector "appLaunched")
-      ~args: Objc_t.[id; id]
-      ~return: Objc_t.void
+      ~args: Objc_type.[id; id]
+      ~return: Objc_type.void
       (fun _self _cmd _app _opts -> Printf.eprintf "App Launched...\n%!")
     ]
 

@@ -1,6 +1,4 @@
-open Foundation
 open UIKit
-open Runtime
 
 (* This example illustrates a "Hello world" app built as a library.
    It is intended to be linked with the app created in Xcode from the
@@ -29,11 +27,11 @@ module App_controller = struct
   let methods =
     [ Method.define show_hello
       ~cmd: (selector "sceneActivated")
-      ~args: Objc_t.[id]
-      ~return: Objc_t.void
+      ~args: Objc_type.[id]
+      ~return: Objc_type.void
     ]
 
-  let _class_ = Class.define "AppController" ~methods
+  let self = Class.define "AppController" ~methods
 end
 
 let main () =

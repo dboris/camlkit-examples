@@ -1,5 +1,3 @@
-open Foundation
-open Runtime
 open AppKit
 open Camlkit
 
@@ -15,7 +13,7 @@ let on_before_start notification =
 
 let on_started _notification =
   let module AC = CamlProxy.Create (App_controller) in
-  let win = Main_window.create (_new_ AC._class_) in
+  let win = Main_window.create (_new_ AC.self) in
   win |> NSWindow.setTitle (new_string app_name);
   win
   |> NSWindow.cascadeTopLeftFromPoint (CGPoint.init ~x: 20. ~y: 20.)

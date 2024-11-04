@@ -1,6 +1,4 @@
-open Foundation
 open AppKit
-open Runtime
 
 let label =
   NSTextField.self |> NSTextFieldClass.labelWithString (new_string "")

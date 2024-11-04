@@ -1,33 +1,23 @@
 open AppKit
-open Runtime
-module T = Objc_t
 
-let define_class () =
+let define () =
   let items = "items" in
-  let ivars = [ Ivar.define items T.id ]
-
-  and init self cmd =
-    let self = self |> msg_super cmd ~args: T.[] ~return: T.id in
-    self |> Property.set items (new_object "NSMutableArray") ~typ: Objc_t.id;
+  let init self cmd =
+    let self =
+      msg_super cmd ~self ~args: Objc_type.noargs ~return: Objc_type.id in
+    self |> Property.set items (NSMutableArray.self |> _new_) Objc_type.id;
     self
   in
   let methods =
-    Property._object_ items T.id () @
-    [ Method.define init
-      ~cmd: (selector "init") ~args: T.[] ~return: T.id
-
-    ; Method.define (fun _ _ -> true)
-      ~cmd: (selector "autosavesInPlace") ~args: T.[] ~return: T.bool
-
-    ; Method.define (fun _ _ -> new_string "Document")
-      ~cmd: (selector "windowNibName") ~args: T.[] ~return: T.id
-
-    ; Method.define (fun _ _ _data_type _err -> nil)
-      ~cmd: (selector "dataOfType:error:") ~args: T.[id; ptr id] ~return: T.id
-
-    ; Method.define (fun _ _ _data _data_type _err -> true)
-      ~cmd: (selector "readFromData:ofType:error:")
-      ~args: T.[id; id; ptr id] ~return: T.bool
+    [ NSObjectMethods.init init
+    ; NSDocumentMethods.windowNibName (fun _ _ -> new_string "Document")
+    ; NSDocumentMethods.dataOfType'error' (fun _ _ _dt _err -> nil)
+    ; NSDocumentMethods.readFromData'ofType'error'
+        (fun _ _ _data _dt _err -> true)
     ]
   in
-  Class.define "Document" ~superclass: NSDocument.self ~methods ~ivars
+  Class.define "Document"
+    ~superclass: NSDocument.self
+    ~properties: [Property.define items Objc_type.id]
+    ~class_methods: [NSDocumentClassMethods.autosavesInPlace (fun _ _ -> true)]
+    ~methods

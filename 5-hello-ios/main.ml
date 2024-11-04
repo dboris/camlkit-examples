@@ -1,6 +1,4 @@
-open Foundation
 open UIKit
-open Runtime
 
 module AppDelegate = struct
   let show_hello _self _cmd _app _opts =
@@ -32,8 +30,8 @@ module AppDelegate = struct
   let methods =
     [ Method.define show_hello
       ~cmd: (selector "application:didFinishLaunchingWithOptions:")
-      ~args: Objc_t.[id; id]
-      ~return: Objc_t.bool
+      ~args: Objc_type.[id; id]
+      ~return: Objc_type.bool
     ]
 
   let _class_ =
@@ -41,8 +39,7 @@ module AppDelegate = struct
 end
 
 let main () =
-  let _ = NSObjectClass.new_ NSAutoreleasePool.self
-  and argc = Array.length Sys.argv
+  let argc = Array.length Sys.argv
   and argv =
     Sys.argv
     |> Array.to_list
