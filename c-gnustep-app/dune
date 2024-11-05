@@ -6,7 +6,7 @@
   (<> %{context_name} simulator.ios)
   (<> %{context_name} simulator-arm.ios)
   (<> %{context_name} catalyst.ios)))
- (flags :standard -ccopt "-framework AppKit")
+ (flags :standard -cclib "-L/usr/GNUstep/System/Library/Libraries -lgnustep-gui -lgnustep-base -lobjc")
  (libraries camlkit-base.Foundation camlkit-gui.AppKit camlkit.camlkit))
 
 (subdir GSApp.app
